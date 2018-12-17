@@ -93,3 +93,39 @@ void input_file(BST<user>& main_BST) {
 void print_all(BST<user> main_BST) {
 	main_BST.inorder(cout);
 }
+
+/*
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+OUTPUT
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+Username: test
+Password: test1
+User not found!
+
+Try again? (Y): Y
+
+Username: username
+Password: wrong pw
+Invalid password!
+
+Try again? (Y): Y
+
+Username: username
+Password: password
+Login successful!
+
+Try again? (Y): N
+
+Printing all of BST..
+U: ai_should_be_first P: ai_should_be_first
+U: b_should_be_second P: b_should_be_second
+U: c_should_be_third P: c_should_be_third
+U: d_deliciously_4th P: d_deliciously_4th
+U: ultraun P: ultraun
+U: username P: username
+U: weakusername P: weakusername
+Press any key to continue . . .
+
+*/
