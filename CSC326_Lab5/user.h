@@ -9,13 +9,16 @@ public:
 	user();
 	user(string, string);
 	string get_username();
-	bool check_valid_password(string);
 
-	bool operator == (string);
+	friend ostream& operator <<(ostream&, user);
+	friend bool operator == (user, user);
+	friend bool operator > (user, user);
+	friend bool operator < (user, user);
 };
 
+
 user::user() 
-	:username(NULL), password(NULL)
+	:username("DUMMY"), password("DUMMY")
 {
 	//Intentionally empty
 }
@@ -30,11 +33,19 @@ string user::get_username() {
 	return username;
 }
 
-bool user::check_valid_password(string input) {
-	return input == password;
+bool operator == (user left, user right) {
+	return left.password == right.password;
 }
 
-bool user::operator == (string input) {
-	return input == username;
+bool operator <(user left, user right) {
+	return left.username < right.username;
 }
 
+bool operator >(user left, user right) {
+	return left.username > right.username;
+}
+
+ostream& operator <<(ostream& out, user input) {
+	out << "U: " << input.username << " P: " << input.username << endl;
+	return out;
+}

@@ -6,36 +6,72 @@
 
 using namespace std;
 
+void input_file(BST<user>&);
+user ask_credentials(BST<user>);
+void search_credentials(BST<user>, user);
+void print_all(BST<user>);
+
+
 int main() {
 
 	BST<user> main_BST;
+	user holder;
+	char user_input;
+	bool try_again = true;
 
 	input_file(main_BST);
-	ask_credentials();
 
+	while (try_again) {
+		holder = ask_credentials(main_BST);
+		search_credentials(main_BST, holder);
+		cout << "\nTry again? (Y): ";
+		cin >> user_input;
+		cin.ignore();
+		cout << '\n';
 
+		if (user_input == 'Y' || user_input == 'y')
+			try_again = true;
+		else
+			try_again = false;
+	}
+
+	cout << "Printing all of BST.." << endl;
+	print_all(main_BST);
+
+	system("pause");
 	return 0;
 }
 
-void ask_credentials(BST<user> main_BST) {
+user ask_credentials(BST<user> main_BST) {
 
 	string un, pw;
 	user holder;
 
 	//Ideal to use getline instead
 	cout << "Username: ";
-	cin >> un;
+	getline(cin, un);
 	cout << "Password: ";
-	cin >> pw;
+	getline(cin, pw);
 
-	holder = user(un, pw);
-
-	search_credentials(main_BST, holder);
+	return user(un, pw);
 }
 
-void search_credentials(BST<user> main_BST, user target) {
-	if (main_BST.search(target)) {
+void search_credentials(BST<user> main_BST, user input) {
 
+	user holder;
+	
+
+	try {
+		holder = main_BST.search(input);
+		//At this point, input has been updated to contain data retrieved from search.
+		//Check password match
+		if (input == holder)
+			cout << "Login successful!" << endl;
+		else
+			cout << "Invalid password!" << endl;
+	}
+	catch (int error) {
+		cout << "User not found!" << endl;
 	}
 }
 
@@ -52,4 +88,8 @@ void input_file(BST<user>& main_BST) {
 		holder = user(holder_un, holder_pw);		
 		main_BST.insert(holder);
 	}
+}
+
+void print_all(BST<user> main_BST) {
+	main_BST.inorder(cout);
 }

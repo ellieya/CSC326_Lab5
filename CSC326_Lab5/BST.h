@@ -46,7 +46,7 @@ class BST
     Postcondition: Returns true if BST is empty and false otherwise.
    -----------------------------------------------------------------------*/
 
-  bool search(const DataType & item) const; 
+  DataType search(const DataType & item) const; 
   /*------------------------------------------------------------------------
     Search the BST for item.
 
@@ -153,7 +153,7 @@ inline bool BST<DataType>::empty() const
 
 //--- Definition of search()
 template <typename DataType>
-bool BST<DataType>::search(const DataType & item) const
+DataType BST<DataType>::search(const DataType & item) const
 {
    BinNodePointer locptr = myRoot;
    bool found = false;
@@ -163,10 +163,12 @@ bool BST<DataType>::search(const DataType & item) const
         locptr = locptr->left;
       else if (locptr->data < item)  // descend right
         locptr = locptr->right;
-      else                           // item found
-        found = true;
+	  else {                           // item found
+		  found = true;
+		  return locptr->data;
+	  }
    }
-   return found;
+   throw 0;
 }
 
 //--- Definition of insert()
@@ -290,7 +292,7 @@ void BST<DataType>::inorderAux(ostream & out,
    if (subtreeRoot != 0)
    {
       inorderAux(out, subtreeRoot->left);    // L operation
-      out << subtreeRoot->data << "  ";      // V operation
+      out << subtreeRoot->data;      // V operation
       inorderAux(out, subtreeRoot->right);   // R operation
    }
 }
